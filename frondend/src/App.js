@@ -1,26 +1,19 @@
 import { onAuthStateChanged } from 'firebase/auth';
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useContext, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { auth } from './config/firebase';
+import { AppContext } from './context/AppContext';
 const Chat = React.lazy(() => import('./views/Chat'));
 const Profile = React.lazy(() => import('./views/Profile'));
 const Login = React.lazy(() => import('./views/Login'));
 
 function App() {
-  const navigate = useNavigate();
+  const { authReady } = useContext(AppContext);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigate('/chat');
-        console.log("User is signed in:", user);
-      } else {
-        navigate('/');
-        console.log("No user is signed in.");
-      }
-    });
-  }, []);
+  if (!authReady) {
+    return <div>Vérification de l'authentification...</div>;
+  }
 
 
   return (

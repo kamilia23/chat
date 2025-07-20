@@ -1,76 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import io from 'socket.io-client';
 import '../style.css';
 import Chatbox from './Chatbox';
 import LeftSideBar from './LeftSideBar';
 import RightSideBar from './RightSideBar';
 
-//const socket = io('http://localhost:5000');
-
 const Chat = () => {
-  const [contacts, setContacts] = useState([]);
-  const [selectedContact, setSelectedContact] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
-  const messagesEndRef = useRef(null);
-
-
-//   useEffect(() => {
-//     socket.emit('getContacts');
-//     socket.on('contactsList', (list) => {
-//       setContacts(list);
-//     });
-//     return () => socket.off('contactsList');
-//   }, []);
-
-//   // When a contact is selected, join their room and fetch conversation
-//   useEffect(() => {
-//     if (!selectedContact) return;
-//     // Leave any previous room
-//     socket.emit('joinRoom', { room: selectedContact.roomId });
-
-//     // Request message history
-//     socket.emit('getHistory', { room: selectedContact.roomId });
-//     socket.on('history', (history) => {
-//       setMessages(history);
-//       scrollToBottom();
-//     });
-
-//     // Listen for incoming messages
-//     socket.on('message', (msg) => {
-//       if (msg.roomId === selectedContact.roomId) {
-//         setMessages((prev) => [...prev, msg]);
-//         scrollToBottom();
-//       }
-//     });
-
-//     return () => {
-//       socket.off('history');
-//       socket.off('message');
-//     };
-//   }, [selectedContact]);
-
-//   // Auto-scroll to bottom
-//   const scrollToBottom = () => {
-//     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-//   };
-
-//   // Handle sending a new message
-//   const handleSend = () => {
-//     if (!newMessage.trim() || !selectedContact) return;
-//     const msg = {
-//       roomId: selectedContact.roomId,
-//       from: socket.id,
-//       content: newMessage.trim(),
-//       timestamp: new Date().toISOString(),
-//     };
-//     socket.emit('sendMessage', msg);
-//     setMessages((prev) => [...prev, msg]);
-//     setNewMessage('');
-//     scrollToBottom();
-//   };
-
-
 
   return (
 	<div className='chat'>

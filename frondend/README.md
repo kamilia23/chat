@@ -69,3 +69,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCEoFyvZdn7KhTQ_MzqoPsI3BH0z7lct8c",
+  authDomain: "chat-c41e7.firebaseapp.com",
+  projectId: "chat-c41e7",
+  storageBucket: "chat-c41e7.firebasestorage.app",
+  messagingSenderId: "879291265951",
+  appId: "1:879291265951:web:85926516c8158207fac3aa",
+  measurementId: "G-W3JQF63VG1"
+};

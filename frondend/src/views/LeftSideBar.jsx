@@ -1,11 +1,10 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import { db } from '../config/firebase';
 
 function LeftSideBar() {
-  const navigate = useNavigate();
   const [allUsers, setAllUsers] = useState([]);
  const { userData, setSelectedUser } = useContext(AppContext);
   const [user, setUser] = useState(null);

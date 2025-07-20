@@ -1,13 +1,16 @@
-import React from 'react'
+import { useContext } from 'react'
 import { logout } from '../config/firebase'
+import { AppContext } from '../context/AppContext';
 
 function RightSideBar() {
+  const { userData } = useContext(AppContext);
+
   return (
     <div className='right-side-bar'>
       <div className="right-side-bar-profile">
         <img src="img/user.png" alt="" />
-        <h3>Aiboud kamilia <img src="img/gd.png" alt="" /></h3>
-        <p>hey, there is my profile </p>
+        <h3>{userData.name || userData.username} <img src="img/gd.png" alt="" /></h3>
+        <p>{userData.bio} </p>
       </div>
 
       <div className="right-side-bar-media">

@@ -67,6 +67,6 @@ const logout = async () => {
         toast.error(error.code.split('/')[1].split('-').join(' '));
     }
 }
-
+ 
 
 export { signup, login, logout, auth, db };

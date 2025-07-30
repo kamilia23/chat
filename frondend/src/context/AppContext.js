@@ -26,7 +26,7 @@ const AppContextProvider = (props) => {
                 const userSnap = await getDoc(userRef);
                 if (userSnap.exists()) {
                     setUserData(userSnap.data());
-                    navigate("/chat");
+                    navigate("/chat/" + user.uid);
                 }
             } else {
                 setUserData(null);

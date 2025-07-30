@@ -63,27 +63,27 @@ function LeftSideBar() {
     <div className='left-side-bar'>
       <div className="left-top">
         <div className="left-nav">
-          <img src="img/logo.png" alt="logo" className='logo' />
+          <img src="/img/logo.png" alt="logo" className='logo' />
           <div className="menu">
-            <img src="img/pts.png" alt="" />
+            <img src="/img/pts.png" alt="" />
           </div>
         </div>
         <div className="left-search">
-          <img src="img/search.png" alt="" className='search-icon' />
+          <img src="/img/search.png" alt="" className='search-icon' />
           <input type="text" onChange={inputHandler} placeholder='Search here..' />
         </div>
       </div>
       <div className="left-list">
         {showSearch && user ?
           <div className='friends add-user' onClick={() => setSelectedUser(user)}>
-            <img src="img/user.png" alt="" />
+            <img src="/img/user.png" alt="" />
             <p>{user.name || user.username}</p>
           </div>
 
           : (
             allUsers.map((u) => (
               <div className="friends" key={u.id} onClick={() => setSelectedUser(u)}>
-                <img src="img/user.png" alt="" />
+                <img src="/img/user.png" alt="" />
                 <div className="left-list-item-text">
                   <p>{u.name || u.username}</p>
                   <span>{u.bio || "No message"}</span>

@@ -3,6 +3,8 @@ import { AppContext } from '../context/AppContext';
 import { collection, addDoc, doc, serverTimestamp, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from '../config/firebase';
 import { io } from "socket.io-client";
+import { onSnapshot } from "firebase/firestore";
+
 
 const socket = io("http://localhost:5000");
 function Chatbox() {
@@ -27,11 +29,25 @@ function Chatbox() {
     setMessages(messagesData);
   };
 
-  useEffect(() => {
-    if (selectedUser) {
-      loadMessagesFromFirestore();
-    }
-  }, [selectedUser]);
+useEffect(() => {
+  if (!userData || !selectedUser) return;
+
+  const chatId = [userData.id, selectedUser.id].sort().join('_');
+  const chatRef = doc(db, "chats", chatId);
+  const messagesRef = collection(chatRef, "messages");
+  const q = query(messagesRef, orderBy("time"));
+
+  const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const messagesData = querySnapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id
+    }));
+    setMessages(messagesData);
+  });
+
+  return () => unsubscribe();
+}, [selectedUser, userData]);
+
 
   useEffect(() => {
     if (userData) {
@@ -86,7 +102,7 @@ function Chatbox() {
 
       await saveMessageToFirestore(newMsg);
 
-      setMessages([...messages, { ...newMsg, id: messages.length + 1, from: "Moi" }]);
+      setMessages([...messages, { ...newMsg, id: messages.length + 1, from: "Moi" }]);      
       setNewMessage('');
     } catch (error) {
       console.error('Erreur lors de l\'envoi du message :', error);
@@ -97,9 +113,9 @@ function Chatbox() {
   return (
     <div className='chatbox'>
       <div className="chat-user">
-        <img src="img/user.png" alt="" />
-        <p>{selectedUser && selectedUser.username} <img src="img/gd.png" alt="" /></p>
-        <img src="img/help.png" alt="" />
+        <img src="/img/user.png" alt="" />
+        <p>{selectedUser && selectedUser.username} <img src="/img/gd.png" alt="" /></p>
+        <img src="/img/help.png" alt="" />
       </div>
 
       <div className="chat-msg">
@@ -108,7 +124,7 @@ function Chatbox() {
 
           return (
             <div className={`s-msg ${isMine ? 'sent' : 'received'}`} key={msg.id}>
-              {!isMine && <img src="img/user.png" alt="Avatar" className="avatar" />}
+              {!isMine && <img src="/img/user.png" alt="Avatar" className="avatar" />}
               <div className="msg-content">
                 <p className="msg">{msg.text}</p>
                 <span className="time">
@@ -117,7 +133,7 @@ function Chatbox() {
                     : msg.time}
                 </span>
               </div>
-              {isMine && <img src="img/user.png" alt="Avatar" className="avatar" />}
+              {isMine && <img src="/img/user.png" alt="Avatar" className="avatar" />}
             </div>
           );
         })}
@@ -133,10 +149,10 @@ function Chatbox() {
         />
         <input type="file" id='image' accept='image/png, image/jpeg, image/jpg' hidden />
         <label htmlFor="image">
-          <img src="img/gallery.png" alt="gallery" />
+          <img src="/img/gallery.png" alt="gallery" />
         </label>
         <button type="submit" style={{ background: 'none', border: 'none' }}>
-          <img src="img/send.png" alt="send" style={{ width: '24px', height: '24px' }} />
+          <img src="/img/send.png" alt="send" style={{ width: '24px', height: '24px' }} />
         </button>
 
       </form>

@@ -21,7 +21,7 @@ function App() {
       <ToastContainer />
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-            <Route path="/chat" element={<Chat />} />
+            <Route path="/chat/:id" element={<Chat />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/" element={<Login />} />
         </Routes>
